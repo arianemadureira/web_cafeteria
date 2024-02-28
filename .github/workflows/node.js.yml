@@ -6,20 +6,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Start Docker
-        run: docker-compose up -d --build
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Wait for web service to be ready
-        run: |
-          timeout=300
-          while ! curl -s http://localhost:3000 > /dev/null; do
-              timeout=$(($timeout - 1))
-              if [ $timeout -eq 0 ]; then
-                  echo "Service did not become ready in time"
-                  exit 1
-              fi
-              sleep 1
-          done
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run npm test
+      run: npm test --prefix ./test/
