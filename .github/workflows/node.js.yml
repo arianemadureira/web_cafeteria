@@ -2,29 +2,14 @@ name: Run Tests
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-          MARIADB_DATABASE: projeto-pedidos
-          MARIADB_USER: root
-          MARIADB_PASSWORD: 12345678
-          MARIADB_ROOT_PASSWORD: 12345678
-        ports:
-          - 3321:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Start web service
+      - name: Start Docker
         run: docker-compose up -d --build
 
       - name: Wait for web service to be ready
@@ -38,7 +23,3 @@ jobs:
               fi
               sleep 1
           done
-
-      - name: Set MariaDB root password
-        run: |
-          docker-compose exec -T mariadb mysql -uroot -p12345678 -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345678';"
