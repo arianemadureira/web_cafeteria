@@ -1,27 +1,43 @@
-name: Docker Image CI
+name: Run Tests
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Build and run Docker Compose
-      run: |
-        docker-compose up -d --build
-
   test:
-    needs: build
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+          MARIADB_DATABASE: projeto-pedidos
+          MARIADB_USER: root
+          MARIADB_PASSWORD: 12345678
+          MARIADB_ROOT_PASSWORD: 12345678
+        ports:
+          - 3321:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    - name: Run npm test
-      run: |
-        docker-compose exec -T app npm run test
-  
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Start web service
+        run: docker-compose up -d --build
+
+      - name: Wait for web service to be ready
+        run: |
+          timeout=300
+          while ! curl -s http://localhost:3000 > /dev/null; do
+              timeout=$(($timeout - 1))
+              if [ $timeout -eq 0 ]; then
+                  echo "Service did not become ready in time"
+                  exit 1
+              fi
+              sleep 1
+          done
+
+      - name: Run npm test
+        run: docker-compose exec web npm test
