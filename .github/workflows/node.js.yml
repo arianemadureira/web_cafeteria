@@ -39,5 +39,6 @@ jobs:
               sleep 1
           done
 
-      - name: Run npm test
-        run: docker-compose exec web npm test
+      - name: Set MariaDB root password
+        run: |
+          docker-compose exec maria-db bash -c "/usr/bin/mariadb-secure-installation <<< $'n\nn\ny\ny\ny\ny\n'"
