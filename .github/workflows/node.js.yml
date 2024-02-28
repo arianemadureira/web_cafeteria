@@ -41,4 +41,4 @@ jobs:
 
       - name: Set MariaDB root password
         run: |
-          docker-compose exec maria-db bash -c "/usr/bin/mariadb-secure-installation <<< $'n\nn\ny\ny\ny\ny\n'"
+          docker-compose exec -T mariadb mysql -uroot -p12345678 -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345678';"
