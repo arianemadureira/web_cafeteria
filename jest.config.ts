@@ -8,7 +8,7 @@ export default {
   },
   testTimeout: 120000,
   verbose: true,
-  // detectOpenHandles: true,
+  detectOpenHandles: true,
   collectCoverage: true,
   forceExit: true,
   transformIgnorePatterns: ['./node_modules'],
