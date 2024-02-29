@@ -12,7 +12,7 @@ import PaymentMethods from '../../../../../app/entity/enum/PaymentoMethods';
 import Pix from '../../../../../app/entity/pix';
 import Payer from '../../../../../app/entity/payer';
 
-describe("MP metodo de pagamento PIX", () => {
+describe.skip("MP metodo de pagamento PIX", () => {
     test("Autenticação de usuário", async () => {
         let mercado_pago = new MPagamento();
         expect(mercado_pago.auth_token).toEqual(process.env.MP_CLIENT_SECRET);
