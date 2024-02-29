@@ -82,5 +82,4 @@ jobs:
             MP_CLIENT_SECRET: ${{ secrets.MP_CLIENT_SECRET }}
           run: |
             docker-compose up -d
-          working-directory: docker-compose.yml
         
