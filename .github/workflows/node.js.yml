@@ -50,3 +50,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
+          run: npm install -g sonarqube-scanner
+            sonar-scanner \
+            -Dsonar.projectKey=arianemadureira_web_cafeteria \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+      - name: Check Quality Gate
+        env: 
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+           QUALITY_GATE_STATUS=$(curl -s "https://sonarcloud.io/api/qualitygates/project_status?projectKey=arianemadureira_Devops-ON" -H "Authorization: Basic $SONAR_TOKEN" | jq -r '.projectStatus.status')
+           if [ "$QUALITY_GATE_STATUS" = "OK" ]; then
+             echo "QG OK"
+           fi
