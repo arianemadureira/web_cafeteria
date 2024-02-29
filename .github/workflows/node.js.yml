@@ -36,7 +36,7 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:
-          projectBaseDir: my-custom-directory
+          projectBaseDir: web_cafeteria
           args: >
             -Dsonar.organization=arianemadureira
             -Dsonar.projectKey=arianemadureira_web_cafeteria
