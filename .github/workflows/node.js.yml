@@ -82,12 +82,3 @@ jobs:
             MP_CLIENT_SECRET: ${{ secrets.MP_CLIENT_SECRET }}
           run: |
             docker-compose up -d
-            
-        - name: Test MariaDB connection
-          run: |
-            while ! nc -z ${{ secrets.MARIADB_HOST }} 3321; do
-              echo "Aguardando o serviço MariaDB estar disponível..."
-              sleep 1
-            done
-            echo "O serviço MariaDB está disponível."
-        
