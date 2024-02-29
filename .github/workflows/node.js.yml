@@ -71,6 +71,16 @@ jobs:
             fetch-depth: 0
             
         - name: Start Docker Compose
+          env:
+            MARIADB_HOST: ${{ secrets.MARIADB_HOST }}
+            MARIADB_USER: ${{ secrets.MARIADB_USER }}
+            MARIADB_PASS: ${{ secrets.MARIADB_PASS }}
+            MARIADB_DATABASE: ${{ secrets.MARIADB_DATABASE }}
+            MARIADB_PORT: ${{ secrets.MARIADB_PORT }}
+            MP_URL: ${{ secrets.MP_URL }}
+            MP_CLIENT_ID: ${{ secrets.MP_CLIENT_ID }}
+            MP_CLIENT_SECRET: ${{ secrets.MP_CLIENT_SECRET }}
           run: |
-            docker-compose up -d --build
+            docker-compose up -d
+          working-directory: docker-compose.yml
         
