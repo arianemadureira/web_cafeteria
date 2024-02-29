@@ -82,4 +82,8 @@ jobs:
             MP_CLIENT_SECRET: ${{ secrets.MP_CLIENT_SECRET }}
           run: |
             docker-compose up -d
+            
+        - name: Test MariaDB connection
+          run: |
+            mysql -h ${{ secrets.MARIADB_HOST }} -u ${{ secrets.MARIADB_USER }} -p"${{ secrets.MARIADB_PASS }}" -e "SELECT 1"
         
