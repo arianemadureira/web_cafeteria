@@ -85,5 +85,9 @@ jobs:
             
         - name: Test MariaDB connection
           run: |
-             docker-compose exec mariadb mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" -h $MYSQL_HOST -e "SHOW DATABASES;"
+            while ! nc -z ${{ secrets.MARIADB_HOST }} 3306; do
+              echo "Aguardando o serviço MariaDB estar disponível..."
+              sleep 1
+            done
+            echo "O serviço MariaDB está disponível."
         
