@@ -85,7 +85,7 @@ jobs:
             
         - name: Test MariaDB connection
           run: |
-            while ! nc -z ${{ secrets.MARIADB_HOST }} 3306; do
+            while ! nc -z ${{ secrets.MARIADB_HOST }} 3321; do
               echo "Aguardando o serviço MariaDB estar disponível..."
               sleep 1
             done
