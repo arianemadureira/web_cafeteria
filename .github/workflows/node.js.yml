@@ -85,5 +85,5 @@ jobs:
             
         - name: Test MariaDB connection
           run: |
-            mysql -h ${{ secrets.MARIADB_HOST }} -u ${{ secrets.MARIADB_USER }} -p"${{ secrets.MARIADB_PASS }}" -e "SELECT 1"
+             docker-compose exec mariadb mysql -u $MYSQL_USER -p"$MYSQL_PASSWORD" -h $MYSQL_HOST -e "SHOW DATABASES;"
         
