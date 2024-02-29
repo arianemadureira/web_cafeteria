@@ -8,21 +8,21 @@ describe("Validando Entity Cliente", () => {
     test("Instanciar Cliente", () => {
         let dataClient = new cliente(
             "Heitor Bernardo Victor Nogueira",
-            "heitoBVN@gmail.com",
+            "heitobvn@gmail.com",
             "317.594.877-40"
         );
         expect("Heitor Bernardo Victor Nogueira").toEqual(dataClient.name);
-        expect("heitoBVN@gmail.com").toEqual(dataClient.email);
+        expect("heitobvn@gmail.com").toEqual(dataClient.email);
         expect("31759487740").toEqual(dataClient.cpf_cnpj);
     })
     test("CPF com formatação", () => {
         let dataClient = new cliente(
             "Heitor Bernardo Victor Nogueira",
-            "heitoBVN@gmail.com",
+            "heitobvn@gmail.com",
             "317.594.877-40"
         );
         expect("Heitor Bernardo Victor Nogueira").toEqual(dataClient.name);
-        expect("heitoBVN@gmail.com").toEqual(dataClient.email);
+        expect("heitobvn@gmail.com").toEqual(dataClient.email);
         expect("317.594.877-40").not.toEqual(dataClient.cpf_cnpj);
     })
     test("CPF VÁLIDO", () => {
