@@ -16,14 +16,14 @@ services:
       MONGO_COLLECTION: admin
 
       CHOKIDAR_USEPOLLING: "true"
-      MARIADB_HOST: ${MARIADB_HOST}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASS: ${MARIADB_PASS}
-      MARIADB_DATABASE: ${MARIADB_DATABASE}
-      MARIADB_PORT: ${MARIADB_PORT}
-      MP_URL: ${MP_URL}
-      MP_CLIENT_ID: ${MP_CLIENT_ID}
-      MP_CLIENT_SECRET: ${MP_CLIENT_SECRET}
+      MARIADB_HOST: ${{ secrets.MARIADB_HOST }}
+      MARIADB_USER: ${{ secrets.MARIADB_USER }}
+      MARIADB_PASS: ${{ secrets.MARIADB_PASS }}
+      MARIADB_DATABASE: ${{ secrets.MARIADB_DATABASE }}
+      MARIADB_PORT: ${{ secrets.MARIADB_PORT }}
+      MP_URL: ${{ secrets.MP_URL }}
+      MP_CLIENT_ID: ${{ secrets.MP_CLIENT_ID }}
+      MP_CLIENT_SECRET: ${{ secrets.MP_CLIENT_SECRET }}
       MP_NOTIFICATION_URL: ${MP_NOTIFICATION_URL}
     depends_on:
       # - mongo
